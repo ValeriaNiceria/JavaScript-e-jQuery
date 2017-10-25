@@ -1,0 +1,1 @@
+$('.target').hide(); //fez a div sumir
