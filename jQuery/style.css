@@ -9,3 +9,9 @@ h1{
 .azul{
     color:aqua;
 }
+
+.modal.active{
+	color:#AA55FFFF;
+	text-shadow:1px 1px 7px #5B5B5BFF;
+	text-decoration: bold;
+}
