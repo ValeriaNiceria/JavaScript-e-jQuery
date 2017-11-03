@@ -29,6 +29,12 @@ ul li a {
 	letter-spacing: 2px;
 }
 
+ul li a.active{
+	background: #56CC9D;
+	color:#fff;
+	border-color:#56CC9D;
+}
+
 h1, h2, h3 {
 	font-family: 'Playfair Display';
 	font-weight: 900;
@@ -121,4 +127,22 @@ img {
 .item-info > div {
 	width: 50%;
 	float: left;
+}
+
+/* Caso o 'js' não exista, será ignorado todo o código abaixo*/
+
+.js .item{
+	opacity: 0;
+	visibility:hidden;
+	position:absolute;
+	top:0;
+	transform: translate3d(-50px,0,0);
+}
+.js .item.active{
+	opacity:1;
+	visibility:	visible;
+	position:relative;
+	top:auto;
+	transition: .5s;
+	transform: translate3d(0px,0,0);	
 }
