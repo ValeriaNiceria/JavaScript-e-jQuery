@@ -29,7 +29,7 @@ ul li a {
 	letter-spacing: 2px;
 }
 
-ul li a.active{
+[data-click].active	{
 	background: #56CC9D;
 	color:#fff;
 	border-color:#56CC9D;
@@ -131,14 +131,14 @@ img {
 
 /* Caso o 'js' não exista, será ignorado todo o código abaixo*/
 
-.js .item{
+.js [data-target]{
 	opacity: 0;
 	visibility:hidden;
 	position:absolute;
 	top:0;
 	transform: translate3d(-50px,0,0);
 }
-.js .item.active{
+.js [data-target].active{
 	opacity:1;
 	visibility:	visible;
 	position:relative;

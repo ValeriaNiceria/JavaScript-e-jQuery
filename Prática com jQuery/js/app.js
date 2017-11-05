@@ -1,37 +1,28 @@
-$(document).ready(function(){
-    var classActive = 'active';
+//data() - Pega o valor dentro de um atributo que comece com 'data-'
+//each - Seleciona cada elemento isoladamente
+//find - Procura o elemento dentro dos filhos
+//first - Seleciona apenas o primeiro elemento
+//addClass - Adiciona uma ou mais classes ao elemento
+//removeClass - Remove uma ou mais classes do elemento
+
+$('[data-group]').each(function(){
+    var $allTarget = $(this).find('[data-target]'),
+        $allClick = $(this).find('[data-click]'),
+        activeClass = 'active';
     
-    $('.animais .tab-menu a').first().addClass(classActive);
-    $('.animais .item').first().addClass(classActive);
-    
-    
-    //Identificar se o usuário clicou em algum botão
-    $('.animais .tab-menu a').click(function(e){
-        e.preventDefault(); 
-        var itemId = $(this).attr('href'); //Pegando o valor do atributo
+    $allTarget.first().addClass(activeClass);
+    $allClick.first().addClass(activeClass);
+
+    $allClick.click(function(e){
+        e.preventDefault();
+
+        var id = $(this).data('click'),
+            $target = $('[data-target="' + id +'"]');
+
+        $allClick.removeClass(activeClass);
+        $allTarget.removeClass(activeClass);
         
-        $('.animais .tab-menu a').removeClass(classActive); //Remove todos os actives
-        $('.animais .item').removeClass(classActive);
-        
-        $(this).addClass(classActive); //Mas rapidamente ele vai adicionar o active
-        $(itemId).addClass(classActive);
+        $target.addClass(activeClass);
+        $(this).addClass(activeClass);
     });
-    
-    //Floresta
-    
-    $('.florestas .tab-menu a').first().addClass(classActive);
-    $('.florestas .item').first().addClass(classActive);
-    
-    
-    //Identificar se o usuário clicou em algum botão
-    $('.florestas .tab-menu a').click(function(e){
-        e.preventDefault(); 
-        var itemId = $(this).attr('href'); //Pegando o valor do atributo
-        
-        $('.florestas .tab-menu a').removeClass(classActive); //Remove todos os actives
-        $('.florestas .item').removeClass(classActive);
-        
-        $(this).addClass(classActive); //Mas rapidamente ele vai adicionar o active
-        $(itemId).addClass(classActive);
-    });
-});
+}); 
