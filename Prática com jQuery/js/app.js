@@ -54,3 +54,24 @@ $('.logo').click(function(e){
         scrollTop: 0
     },800);
 });
+
+
+
+//Scroll Suave link Ativo
+$('section').each(function(){
+    var height = $(this).height(),
+        offsetTop = $(this).offset().top,
+        menuHeight = $('.menu').innerHeight(),
+        id = $(this).attr('id'),
+        $itemMenu = $('a[href="#' + id + '"]');
+
+    $(window).scroll(function(){
+        var scrollTop = $(window).scrollTop();
+        if(((offsetTop - menuHeight) < scrollTop)&&((offsetTop - menuHeight) + height > scrollTop)){
+            $itemMenu.addClass('active');
+        }else{
+            $itemMenu.removeClass('active');
+        }
+    });
+
+});
