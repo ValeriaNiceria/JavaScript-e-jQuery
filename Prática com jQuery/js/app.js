@@ -26,3 +26,31 @@ $('[data-group]').each(function(){
         $(this).addClass(activeClass);
     });
 }); 
+
+
+//Scroll Suave
+
+//attr() - Pega ou define o valor de um atributo específico
+//offset() - Retorna um objeto com as distãncias de top e left do elemento em relação ao documento
+//animate() - Anima propriedades CSS para o valor que você definir
+//innerHeight() - Pega ou define o calor de height(mesma coisa para o width)
+
+$('.menu-nav a[href^="#"]').click(function(e){ //Quando se tem o '^⁼' - quer dizer para selecionar todos com itens que comecem com o que for selecionado
+    e.preventDefault();
+    var id = $(this).attr('href'),
+        menuHeight = $('.menu').innerHeight(),
+        targetOffset = $(id).offset().top;
+    
+    $('html, body').animate({
+        scrollTop: targetOffset - menuHeight
+    },1000);
+});
+
+//Ir para o topo da página
+$('.logo').click(function(e){
+    e.preventDefault();
+    
+    $('html, body').animate({
+        scrollTop: 0
+    },800);
+});
