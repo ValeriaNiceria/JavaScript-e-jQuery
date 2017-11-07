@@ -58,6 +58,8 @@ $('.logo').click(function(e){
 
 
 //Scroll Suave link Ativo
+
+//ScrollTop() - Pega o topo do elemento em relação ao seu scroll (existe também o scrollLeft)
 $('section').each(function(){
     var height = $(this).height(),
         offsetTop = $(this).offset().top,
@@ -75,3 +77,7 @@ $('section').each(function(){
     });
 
 });
+
+
+
+//Menu Mobile 1

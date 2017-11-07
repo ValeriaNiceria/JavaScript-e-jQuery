@@ -218,3 +218,44 @@ img {
 	top: auto;
 	transform: translate3d(0px,0,0);
 }
+
+
+/*ícone do menu mobile*/
+.mobile-btn {
+	display: block;
+	color: white;
+	width: 36px;
+	height: 36px;
+	border-top: 4px solid;
+	margin: 20px 20px 0 0;
+	float: left;
+	position: relative;
+	cursor: pointer; /*Quando passar o mouse por cima, virá uma mão*/
+	-webkit-backface-visibility: hidden;
+}
+
+.mobile-btn::after,.mobile-btn::before {
+	content: '';
+	display: block;
+	margin-top: 6px;
+	height: 4px;
+	background: currentColor; /*Ele pega automaticamente a cor atribuida*/
+	position:relative;
+	transition: transform .3s ease;
+}
+
+.mobile-btn:hover {
+	border-color: transparent;
+}
+
+.mobile-btn:hover::after {
+	margin-top: 0px;
+	top: 2px;
+	transform: rotate(45deg);
+}
+
+.mobile-btn:hover::before {
+	margin-top: 0px;
+	top: 6px;
+	transform: rotate(135deg);
+}
