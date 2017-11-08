@@ -86,3 +86,22 @@ $('.mobile-btn').click(function(){
     $(this).toggleClass('active'); //Adiciona a classe caso não exista e retira caso exista
     $('.mobile-menu').toggleClass('active');
 });
+
+
+
+//Slide
+$('.slide > :first').addClass('active'); //Adiciona a classe 'active' ao primeiro elemento do slide
+
+function rotateSlide() {
+    var activeSlide = $('.slide > .active'),
+        nextSlide = activeSlide.next();
+
+    //verificar se o próximo elemento existe
+    if(nextSlide.length == 0){
+        nextSlide = $('.slide > :first');
+    }
+    activeSlide.removeClass('active');
+    nextSlide.addClass('active');
+}
+
+setInterval(rotateSlide, 2000); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2s
