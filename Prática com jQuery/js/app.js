@@ -80,4 +80,9 @@ $('section').each(function(){
 
 
 
-//Menu Mobile 1
+//Menu Mobile 
+
+$('.mobile-btn').click(function(){
+    $(this).toggleClass('active'); //Adiciona a classe caso não exista e retira caso exista
+    $('.mobile-menu').toggleClass('active');
+});
