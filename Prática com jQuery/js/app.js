@@ -121,3 +121,32 @@ function slider(sliderName, velocidade){
 
 slider('introducao', 2000); //Chamando a função
 
+
+
+
+
+//Animação ao Scroll
+
+var $target = $('[data-anime="scroll"]'),
+    animationClass = 'animate',
+    offset = $(window).height() * 3/4;
+
+function animeScroll() {
+    var documentTop = $(document).scrollTop(); //scrollTop() - Pega o topo do elemento em relação ao seu scroll
+
+    $target.each(function(){
+        var itemTop = $(this).offset().top; //offset() - Retorna um objeto com as distâncias de top e left do elemento em relação ao documento
+        if(documentTop > itemTop - offset){
+            $(this).addClass(animationClass);
+        }else {
+            $(this).removeClass(animationClass);
+        }
+    });
+}
+
+animeScroll(); //Chamando a função
+
+$(document).scroll(function(){ //Quando acionar a rolagem da tela será chamada a função 'animeScroll()'
+    animeScroll();
+});
+

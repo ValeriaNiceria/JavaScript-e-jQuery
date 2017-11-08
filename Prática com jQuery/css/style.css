@@ -196,7 +196,7 @@ p {
 	float: left;
 }
 
-[data-target] {
+.js [data-target] {
 	opacity: 0;
 	visibility: hidden;
 	transform: translate3d(-50px,0,0);
@@ -204,13 +204,13 @@ p {
 	top: 0;
 }
 
-[data-click].active {
+.js [data-click].active {
 	background: #56CC9D;
 	color: white;
 	border-color: #56CC9D;
 }
 
-[data-target].active {
+.js [data-target].active {
 	opacity: 1;
 	visibility: visible;
 	transition: .3s;
@@ -333,4 +333,18 @@ p {
 .slide > .active {
 	position: relative;
 	opacity: 1;
+}
+
+
+/*Animação ao Scroll*/
+
+.js [data-anime] {
+	opacity: 0;
+	transform: translate3d(0, -50px, 0); /*1º x, 2º y, 3º o 3d(profundidade)*/
+	transition: .3s;
+}
+
+.js [data-anime].animate {
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
 }
