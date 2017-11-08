@@ -90,18 +90,34 @@ $('.mobile-btn').click(function(){
 
 
 //Slide
-$('.slide > :first').addClass('active'); //Adiciona a classe 'active' ao primeiro elemento do slide
+function slider(sliderName, velocidade){
+    var sliderClass = '.' + sliderName,
+        activeClass = 'active',
+        rotate = setInterval(rotateSlide, velocidade); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2s
+        
 
-function rotateSlide() {
-    var activeSlide = $('.slide > .active'),
-        nextSlide = activeSlide.next();
+    $(sliderClass + ' > :first').addClass(activeClass); //Adiciona a classe 'active' ao primeiro elemento do slide
 
-    //verificar se o próximo elemento existe
-    if(nextSlide.length == 0){
-        nextSlide = $('.slide > :first');
+    //Quando estiver com o mouse por cima do slide
+    $(sliderClass).hover(function(){
+        clearInterval(rotate);
+    }, function(){
+        rotate = setInterval(rotateSlide, velocidade); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2sec        
+    });
+
+    function rotateSlide() {
+        var activeSlide = $(sliderClass + ' > .' + activeClass),
+            nextSlide = activeSlide.next();
+
+        //verificar se o próximo elemento existe
+        if(nextSlide.length == 0){
+            nextSlide = $(sliderClass + ' > :first');
+        }
+        activeSlide.removeClass(activeClass);
+        nextSlide.addClass(activeClass);
     }
-    activeSlide.removeClass('active');
-    nextSlide.addClass('active');
+
 }
 
-setInterval(rotateSlide, 2000); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2s
+slider('introducao', 2000); //Chamando a função
+
