@@ -1,3 +1,26 @@
+//Debounce do Lodash
+/*
+O debounce, assim como o throttle, limita a quantidade de vezes
+que um determinado trecho de código é executado em relação ao tempo.
+Mas diferentemente do throttle — que assegura que aconteçam no máximo
+1 execução a cada X milisegundos —, o debounce irá postergar a execução 
+do código caso ele seja invocado novamente em menos de X segundos.
+*/
+debounce = function(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
 //data() - Pega o valor dentro de um atributo que comece com 'data-'
 //each - Seleciona cada elemento isoladamente
 //find - Procura o elemento dentro dos filhos
@@ -90,36 +113,39 @@ $('.mobile-btn').click(function(){
 
 
 //Slide
-function slider(sliderName, velocidade){
-    var sliderClass = '.' + sliderName,
-        activeClass = 'active',
-        rotate = setInterval(rotateSlide, velocidade); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2s
-        
+(function(){ //Funções Imediatas JavaScript(IIFE)
+    function slider(sliderName, velocidade){
+        var sliderClass = '.' + sliderName,
+            activeClass = 'active',
+            rotate = setInterval(rotateSlide, velocidade); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2s
+            
 
-    $(sliderClass + ' > :first').addClass(activeClass); //Adiciona a classe 'active' ao primeiro elemento do slide
+        $(sliderClass + ' > :first').addClass(activeClass); //Adiciona a classe 'active' ao primeiro elemento do slide
 
-    //Quando estiver com o mouse por cima do slide
-    $(sliderClass).hover(function(){
-        clearInterval(rotate);
-    }, function(){
-        rotate = setInterval(rotateSlide, velocidade); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2sec        
-    });
+        //Quando estiver com o mouse por cima do slide
+        $(sliderClass).hover(function(){
+            clearInterval(rotate);
+        }, function(){
+            rotate = setInterval(rotateSlide, velocidade); //setInterval() - Irá rodar a função 'rotateSlide' a cada 2sec        
+        });
 
-    function rotateSlide() {
-        var activeSlide = $(sliderClass + ' > .' + activeClass),
-            nextSlide = activeSlide.next();
+        function rotateSlide() {
+            var activeSlide = $(sliderClass + ' > .' + activeClass),
+                nextSlide = activeSlide.next();
 
-        //verificar se o próximo elemento existe
-        if(nextSlide.length == 0){
-            nextSlide = $(sliderClass + ' > :first');
+            //verificar se o próximo elemento existe
+            if(nextSlide.length == 0){
+                nextSlide = $(sliderClass + ' > :first');
+            }
+            activeSlide.removeClass(activeClass);
+            nextSlide.addClass(activeClass);
         }
-        activeSlide.removeClass(activeClass);
-        nextSlide.addClass(activeClass);
+
     }
 
-}
+    slider('introducao', 2000); //Chamando a função
 
-slider('introducao', 2000); //Chamando a função
+})();
 
 
 
@@ -127,26 +153,31 @@ slider('introducao', 2000); //Chamando a função
 
 //Animação ao Scroll
 
-var $target = $('[data-anime="scroll"]'),
-    animationClass = 'animate',
-    offset = $(window).height() * 3/4;
+(function(){ //Funções Imediatas JavaScript(IIFE)
+    var $target = $('[data-anime="scroll"]'),
+        animationClass = 'animate',
+        offset = $(window).height() * 3/4;
 
-function animeScroll() {
-    var documentTop = $(document).scrollTop(); //scrollTop() - Pega o topo do elemento em relação ao seu scroll
+    function animeScroll() {
+        var documentTop = $(document).scrollTop(); //scrollTop() - Pega o topo do elemento em relação ao seu scroll
 
-    $target.each(function(){
-        var itemTop = $(this).offset().top; //offset() - Retorna um objeto com as distâncias de top e left do elemento em relação ao documento
-        if(documentTop > itemTop - offset){
-            $(this).addClass(animationClass);
-        }else {
-            $(this).removeClass(animationClass);
-        }
-    });
-}
+        $target.each(function(){ //each() - Seleciona cada elemento isoladamente
+            var itemTop = $(this).offset().top; //offset() - Retorna um objeto com as distâncias de top e left do elemento em relação ao documento
+            if(documentTop > itemTop - offset){
+                $(this).addClass(animationClass);
+            }else {
+                $(this).removeClass(animationClass);
+            }
+        });
+    }
 
-animeScroll(); //Chamando a função
+    animeScroll(); //Chamando a função
 
-$(document).scroll(function(){ //Quando acionar a rolagem da tela será chamada a função 'animeScroll()'
-    animeScroll();
-});
+    //Usando o debounce
+    $(document).scroll(debounce(function(){ //Quando acionar a rolagem da tela será chamada a função 'animeScroll()'
+        animeScroll();
+    }, 200));
+
+})();
+
 
